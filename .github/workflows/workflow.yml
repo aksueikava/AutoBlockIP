@@ -38,6 +38,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
+          tag_name: nightly-${{ github.run_number }}
           release_name: Nightly build ${{ github.run_number }} (${{ steps.get_date.outputs.date }})
           body: Automated nightly build for commit ${{ github.sha }}.
           draft: false
