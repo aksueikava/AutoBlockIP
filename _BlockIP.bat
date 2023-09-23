@@ -1,5 +1,6 @@
 ::   Made with ❤️ by Watashi o yūwaku suru 
 @echo off
+chcp 1251
 Call :First
 
 
@@ -78,7 +79,7 @@ for /f "tokens=*" %%I in (' 2^>nul dir /b "%FolderListsIP%" ^| findstr /i /r /c:
  set "FileRules=%%I" & %cr%            !N!. {0a}%%I{\n #})
 chcp 1251 >nul
 if "!FileRules!"=="" ( %cr% {0e}           Не найдены {\n #}& set "NoFiles=1" )
-%cr%                                                    {08} ^| Версия 1.00 {\n #}
+%cr%                                                    {08} ^| Версия 1.0 {\n #}
 echo:         Варианты действий:
 echo.
 %cr% {0b}     [1]{#} = Создать/обновить правила блокировки IP из всех файлов {\n #}
