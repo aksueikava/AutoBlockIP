@@ -1,6 +1,5 @@
 ::   Made with ❤️ by Watashi o yūwaku suru 
 @echo off
-chcp 1251
 Call :First
 
 
