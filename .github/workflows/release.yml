@@ -38,6 +38,12 @@ jobs:
         body: "Automated nightly build for commit `${{ github.sha }}.`"
         draft: false
         prerelease: false
+    
+    - name: 📦 Build and Archive
+      run: |
+        mkdir artifacts
+        ./build_and_archive.sh AutoBlockIP.zip
+        mv AutoBlockIP.zip artifacts/AutoBlockIP.zip
 
     - name: 📦 Upload Release Asset
       uses: actions/upload-release-asset@v1
@@ -45,6 +51,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ${{ github.workspace }}/*.zip
+        asset_path: ${{ github.workspace }}/artifacts/AutoBlockIP.zip
         asset_name: AutoBlockIP.zip
         asset_content_type: application/zip
