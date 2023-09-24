@@ -46,7 +46,8 @@ jobs:
       with:
         tag_name: ${{ steps.create_tag.outputs.tagname }}
         release_name: "Nightly build ${{ github.run_number }} (${{ steps.get_date.outputs.date }})"
-        body: "Automated nightly build for commit `${{ steps.truncate_sha.outputs.truncated_sha }}.`"
+        body: |
+          Automated nightly build for commit [`${{ steps.truncate_sha.outputs.truncated_sha }}`](https://github.com/aksueikava/AutoBlockIP/commit/${{ steps.truncate_sha.outputs.truncated_sha }}).
         draft: false
         prerelease: false
 
