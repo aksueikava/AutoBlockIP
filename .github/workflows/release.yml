@@ -26,11 +26,17 @@ jobs:
       run: |
         tagname="nightly-${GITHUB_SHA::8}-${{ github.run_number }}"
         echo "::set-output name=tagname::$tagname"
-    
+
     - name: 🚀 Get current date
       id: get_date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
       shell: bash
+
+    - name: ⚙️ Get first 7 characters of the commit hash
+      id: truncate_sha
+      run: |
+        truncated_sha=$(echo "${{ github.sha }}" | cut -c 1-7)
+        echo "::set-output name=truncated_sha::${truncated_sha}"
 
     - name: 🐛 Create a Release
       id: create_release
@@ -40,7 +46,7 @@ jobs:
       with:
         tag_name: ${{ steps.create_tag.outputs.tagname }}
         release_name: "Nightly build ${{ github.run_number }} (${{ steps.get_date.outputs.date }})"
-        body: "Automated nightly build for commit `${{ github.sha }}.`"
+        body: "Automated nightly build for commit `${{ steps.truncate_sha.outputs.truncated_sha }}.`"
         draft: false
         prerelease: false
 
