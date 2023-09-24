@@ -21,14 +21,19 @@ jobs:
         echo 'Создание архива в формате .zip...'
         zip -r $(date +%Y-%m-%d-%H-%M-%S).zip . -x 'assets/*' '.github/*' 'README.md'
 
+    - name: 💬 Generate tag
+      id: create_tag
+      run: |
+        tagname="nightly-${GITHUB_SHA::8}-${{ github.run_number }}"
+        echo "::set-output name=tagname::$tagname"
+
     - name: 🐛 Create a Release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        name: "Nightly build $GITHUB_RUN_NUMBER ($(date +%Y-%m-%d))"
-        release_name: "Nightly build $GITHUB_RUN_NUMBER ($(date +%Y-%m-%d))"
+        tag_name: ${{ steps.create_tag.outputs.tagname }}
+        release_name: "Nightly build ${{ github.run_number }} ($(date +%Y-%m-%d))"
         body: "Automated nightly build for commit `${{ github.sha }}.`"
         draft: false
         prerelease: false
