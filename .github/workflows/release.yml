@@ -26,6 +26,11 @@ jobs:
       run: |
         tagname="nightly-${GITHUB_SHA::8}-${{ github.run_number }}"
         echo "::set-output name=tagname::$tagname"
+    
+    - name: 🚀 Get current date
+      id: get_date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      shell: bash
 
     - name: 🐛 Create a Release
       id: create_release
@@ -34,7 +39,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
       with:
         tag_name: ${{ steps.create_tag.outputs.tagname }}
-        release_name: "Nightly build ${{ github.run_number }} ($(date +%Y-%m-%d))"
+        release_name: "Nightly build ${{ github.run_number }} (${{ steps.get_date.outputs.date }})"
         body: "Automated nightly build for commit `${{ github.sha }}.`"
         draft: false
         prerelease: false
