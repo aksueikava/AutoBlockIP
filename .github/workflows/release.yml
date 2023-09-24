@@ -19,7 +19,7 @@ jobs:
     - name: ♻️ Archive files
       run: |
         echo 'Создание архива в формате .zip...'
-        zip -r AutoBlockIP.zip . -x 'assets/*' '.github/*' 'README.md'
+        zip -r AutoBlockIP.zip . -x 'assets/*' '.github/*' '.git/*' 'README.md'
 
     - name: 💬 Generate tag
       id: create_tag
