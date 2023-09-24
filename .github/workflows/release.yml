@@ -9,19 +9,17 @@ jobs:
   build-and-release:
     runs-on: ubuntu-latest
     steps:
+    
     - name: 🎉 Checkout code
       uses: actions/checkout@v2
 
-    - name: 🚀 Install latest Git
-      run: |
-        sudo add-apt-repository ppa:git-core/ppa -y
-        sudo apt-get update
-        sudo apt-get install git -y
+    - name: 📦 Install zip
+      run: sudo apt-get install zip -y
 
     - name: ♻️ Archive files
       run: |
         echo 'Создание архива в формате .zip...'
-        git archive --format=zip --output=$(date +%Y-%m-%d-%H-%M-%S).zip HEAD --exclude='assets/*' --exclude='.github/*' --exclude='README.md'
+        zip -r $(date +%Y-%m-%d-%H-%M-%S).zip . -x 'assets/*' '.github/*' 'README.md'
 
     - name: 🐛 Create a Release
       uses: actions/create-release@v1
